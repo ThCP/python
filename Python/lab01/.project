@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Lab01AmI</name>
+	<name>lab01</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -18,7 +18,7 @@
 		<link>
 			<name>lab01</name>
 			<type>2</type>
-			<location>/media/riccardo/360E-DDCB/lab01/lab01</location>
+			<location>/home/riccardo/Programmazione/Python/AmI/lab01</location>
 		</link>
 	</linkedResources>
 </projectDescription>
