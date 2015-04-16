@@ -5,13 +5,15 @@ Created on 13/apr/2015
 '''
 from music_crawler.trackClasses import TrackList, Track
 import os
+from music_player.music_player import Player
 
 def main():
     track_list = TrackList()
-    read_commands(track_list)
+    player = Player()
+    read_commands(track_list, player)
     
     
-def read_commands (track_list):
+def read_commands (track_list, player):
     command = ""
     
     while command != "exit":
@@ -40,8 +42,7 @@ def read_commands (track_list):
                     print "%d - %s" % (t.ID, t.path)
                 
                 print "Found %d matches." % len (matches)
-                    
-            
+
         elif (cmd == "show"):
             if len(cmd_split) != 2:
                 pass
@@ -51,6 +52,13 @@ def read_commands (track_list):
             track_list.list()
         elif (cmd == "exit"):
             print "Program exiting."
+        elif (cmd == "play"):
+            track = track_list.tracks[int(cmd_split[1].strip())]
+            player.play(track.path)
+        elif (cmd =="stop"):
+            player.stop()
+        
+        
         else:
             print "Unknown command."
             pass

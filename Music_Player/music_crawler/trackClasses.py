@@ -75,7 +75,7 @@ class TrackList (object):
     def __init__(self):
         self.ID = 0
         self.tracks = []
-    
+    # scan the root folder looking for .mp3 and .flac files
     def scan(self, root_folder):
         print root_folder
         
@@ -102,15 +102,18 @@ class TrackList (object):
             self.tracks.append(track)
             #updates the n. of tracks in the collection
             self.ID+=1
-    
+
+    #shows the content of the collection       
     def list(self):
         
         for track in self.tracks:
             print "#################################"
             track.display()
             
-    def search(self, tag, value):
+        print "#################################"
         
+    #searches for <value> contained in <tag>    
+    def search(self, tag, value):
         matches = []
         
         for track in self.tracks:
