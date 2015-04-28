@@ -10,7 +10,7 @@ from music_player.music_player import Player
 def main():
     track_list = TrackList()
     player = Player()
-    read_commands(track_list, player)
+   # read_commands(track_list, player)
     
     
 def read_commands (track_list, player):
@@ -52,12 +52,12 @@ def read_commands (track_list, player):
             track_list.list()
         elif (cmd == "exit"):
             print "Program exiting."
-        elif (cmd == "play"):
-            track = track_list.tracks[int(cmd_split[1].strip())]
-            player.play(track.path)
-        elif (cmd =="stop"):
-            player.stop()
-        
+#         elif (cmd == "play"):
+#             track = track_list.tracks[int(cmd_split[1].strip())]
+#             player.play(track.path)
+#         elif (cmd =="stop"):
+#             player.stop()
+#         
         
         else:
             print "Unknown command."
