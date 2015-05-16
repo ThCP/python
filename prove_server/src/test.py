@@ -5,7 +5,6 @@ Created on 15/mag/2015
 This module simulates HTTP requests to the server, printing the outcome on stdout.
 
 '''
-import rest
 import requests
 from flask.json import jsonify
 from flask.app import Flask
