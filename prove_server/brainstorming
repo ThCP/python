@@ -1,0 +1,22 @@
+init_stations ()
+1. ho una lista di indirizzi da cui attingere
+2. scorro la lista e attivo tutte le stazioni
+3. per ogni stazione il server manda un messaggio di attivazione e attende una risposta.
+4. la risposta finisce in un database (all'inizio un array di dictionary)
+
+init_all_stations () contiene un loop di init_station()
+
+DA FARE: 
+- impostare la lista
+- interrompere il loop (guarda doc Flask)
+- creare un programma che scrive la lista (fittizia) di stazioni
+- creare il file management.py che contiene tutte le funzioni necessarie a mantenere il server
+
+Punti fermi:
+- la stazione è già accesa
+- il server manda un messaggio a tutte le stazioni in lista e riceve l'ack in risposta
+
+Domande:
+- il server è in loop infinito? (guarda doc Flask)
+- come faccio a influire sul server quando è acceso? (doc flask)
+- posso creare più server sulla stessa piattaforma=^? (doc flask)
