@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Player</title>
+</head>
+<body>
+	<h1>Tracks</h1>
+		{% for i in songs_temp%}
+	<p>
+		{{i.name[0]}}
+		<a href="{{ url_for('song', ID = i.ID) }}">more...</a>   <!-- Be careful, the variable I am passing must 	
+																	  be the same as the one I have in the main.py file (ID in this case)	 
+																	  
+																	  -->
+	</p>
+		{%endfor%}
+	<p>
+	</p>
+</body>
+</html>
