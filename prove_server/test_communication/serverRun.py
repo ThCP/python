@@ -14,7 +14,13 @@ app = Flask ('test_communication')
 def index():
     return render_template('indexServer.html')
 
-
+@app.route('/post', methods = ['GET','POST'])
+def post():
+    
+    return render_template('response.html')
+    #d = Request.form['k1']
+    #j_data = Request.get_json()
+    #d = decode_data(j_data)
 
 if __name__ == '__main__':
-    app.run('10.15.3.155', port = 5000)
+    app.run('0.0.0.0', port=5000, debug = True)

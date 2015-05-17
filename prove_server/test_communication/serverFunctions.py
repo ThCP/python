@@ -10,6 +10,11 @@ from flask import request
 import json
 from rest import send
 
+address_server = 'http://10.15.3.155:5000'
+address_station = ''
+
+page = '/post'
+
 data = {
         'k1' : 'value1',
         'k2' : 'value2'
@@ -26,7 +31,9 @@ def decode_data(j_data):
     return d
 
 def send_request(j_data):
-    send(method = 'POST', url = 'http://10.15.2.89/post:8000', data = j_data)
+    #send(method = 'POST', url = 'http://10.15.2.89/post:8000', data = j_data)
+    send(method = 'POST', url = 'http://localhost/post:8000', data = j_data)
+    
 
 if __name__ == '__main__':
     j_data = encode_data(data)
