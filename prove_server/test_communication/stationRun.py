@@ -21,11 +21,6 @@ def index():
 @app.route('/post', methods = ['POST'])
 def post():
     return render_template('response.html')
-    #d = Request.form['k1']
-    #j_data = Request.get_json()
-    #d = decode_data(j_data)
-    d = 123
-    print d
     
 if __name__ == '__main__':
     app.run ('0.0.0.0', port = 8000)
