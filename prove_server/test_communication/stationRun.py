@@ -1,6 +1,6 @@
 '''
 Created on 16/mag/2015
-@author: Riccardo
+@author: Riccardo Cappuzzo
 
 This method is used to run the Flask application on the station side.
 The station must contain a server in order to listen to commands from 
@@ -19,9 +19,9 @@ def index():
     return render_template('indexStation.html')
 
 @app.route('/post', methods = ['POST'])
-def post():
+def post(): 
     return render_template('response.html')
     
 if __name__ == '__main__':
-    app.run ('0.0.0.0', port = 8000)
+    app.run ('localhost', port = 8000)
     

@@ -22,12 +22,12 @@ data = {
 
 def encode_data(data):
     j_data = json.dumps(data, separators=(',',':'))
-    print "j_data = %r " % j_data
+    #print "j_data = %r " % j_data
     return j_data
 
 def decode_data(j_data):
     d = json.loads(j_data)
-    print "d = %r " % d
+    #print "d = %r " % d
     return d
 
 def send_request(j_data):
