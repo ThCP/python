@@ -1,0 +1,10 @@
+Author: Riccardo Cappuzzo
+Created: 2015-05-25
+
+This program reads from input a particular csv file and saves it into a database.
+
+The format of the file is:
+
+An example data line is the following:
+	TO_CEN03,XP01,A001,,,,"32,52",,"24,1",VERT,SCALA,,ATU.,AMM
+	
