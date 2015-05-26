@@ -3,7 +3,7 @@ Created on 25/mag/2015
 
 @author: Riccardo Cappuzzo
 
-This file contains all the update/insert/delete commands
+This file contains all the update/insert/delete commands for the destination database
 
 '''
 
@@ -31,12 +31,12 @@ def insert_new_destination (data):
             (?,?,?,?,?,?,?,?,?,?);
         '''
 
-    conn = sqlite3.connect("stations.db")
+    conn = sqlite3.connect("destinations.db")
     c = conn.cursor()
     c.execute ( sql,
-                (data['bl_id'], 
+                (data['rm_id'], 
+                data['bl_id'],
                 data['fl_id'],
-                data['rm_id'],
                 data['lat'],
                 data['lon'],
                 data['name'],
@@ -51,19 +51,57 @@ def insert_new_destination (data):
     c.close()
 
 ################## UPDATE ENTRIES ##################
-def update_destination_data (station_data, station_ID):
+def update_destination_data (destination_data, destination_ID):
+   
+    sql = '''
+            UPDATE destinations SET 
+                rm_id = ?, 
+                bl_id = ?,
+                fl_id = ?,
+                lat = ?,
+                lon = ?,
+                name = ?,
+                rm_cat = ?,
+                rm_type = ?,
+                dv_id = ?,
+                dp_id = ?
+            WHERE rm_id = ?
+            ;
+        '''
 
-    sid = station_data['station_id']
-    sip = station_data['station_ip']
-    lat = station_data['lat']
-    long = station_data['long']
-       
-    sql = 'UPDATE stations SET SID = ?, SIP = ?, LAT = ?, LONG = ? WHERE SID = ?;'   
         
-    conn = sqlite3.connect("stations.db")
+    conn = sqlite3.connect("destination.db")
     c = conn.cursor()
-    c.execute ( sql, (sid, sip, lat, long, station_ID) )
+    c.execute ( sql,
+                (destination_data['bl_id'], 
+                destination_data['fl_id'],
+                destination_data['rm_id'],
+                destination_data['lat'],
+                destination_data['lon'],
+                destination_data['name'],
+                destination_data['rm_cat'],
+                destination_data['rm_type'],
+                destination_data['dv_id'],
+                destination_data['dp_id'],
+                destination_ID
+                ) 
+               )
     conn.commit()
-    print 'updated station %s ' % sid
-    
     c.close()
+    
+################## REMOVE ENTRY ##################
+def delete_destination_data (destination_ID):
+   
+    sql = '''
+            DELETE FROM destinations
+            WHERE rm_id = ?
+            ;
+        '''
+
+        
+    conn = sqlite3.connect("destination.db")
+    c = conn.cursor()
+    c.execute ( sql, (destination_ID,) )
+    conn.commit()
+    c.close()
+    

@@ -3,7 +3,10 @@ Created on 25/mag/2015
 
 @author: Riccardo Cappuzzo
 
-This function creates the destinations database
+This function creates the destinations database.
+Call this only once, if the structure of the db is wrong, 
+delete it and restart. CAREFUL WHEN DELETING
+
 '''
 import sqlite3
 
@@ -15,8 +18,8 @@ def create_destination_table():
             rm_id char(4) primary key,
             bl_id char(8),
             fl_id char(4),
-            lat float,
-            lon float,
+            lat char(20),
+            lon char(20),
             name char(64),
             rm_cat char(4),
             rm_type char(12),

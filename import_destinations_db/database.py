@@ -8,7 +8,7 @@ station_data = {
                 'station_id' : '00001',
                 'station_ip' : '10.115.113.44/5000',
                 'lat' : 0,
-                'long' : 0
+                'lon' : 0
                 }
 
 ####################################################
@@ -43,7 +43,7 @@ def fetch_all_stations():
 ################## CREATE ENTRIES ##################    
 def create_station_table():
     
-    sql = 'CREATE TABLE stations ( SID CHAR (5), SIP CHAR (15), LAT DECIMAL(9,6), LONG DECIMAL(9,6) );'
+    sql = 'CREATE TABLE stations ( SID CHAR (5), SIP CHAR (15), LAT DECIMAL(9,6), lon DECIMAL(9,6) );'
     
     conn = sqlite3.connect("stations.db")
     c = conn.cursor()
@@ -59,13 +59,13 @@ def insert_new_station (station_data):
     sid = station_data['station_id']
     sip = station_data['station_ip']
     lat = station_data['lat']
-    long = station_data['long']
+    lon = station_data['lon']
     
-    sql = 'INSERT INTO stations (SID, SIP, LAT, LONG) VALUES (?,?,?,?)'
+    sql = 'INSERT INTO stations (SID, SIP, LAT, lon) VALUES (?,?,?,?)'
         
     conn = sqlite3.connect("stations.db")
     c = conn.cursor()
-    c.execute ( sql, (sid, sip, lat, long) )
+    c.execute ( sql, (sid, sip, lat, lon) )
     conn.commit()
     print 'added station %s ' % sid
     
@@ -77,13 +77,13 @@ def update_station_data (station_data, station_ID):
     sid = station_data['station_id']
     sip = station_data['station_ip']
     lat = station_data['lat']
-    long = station_data['long']
+    lon = station_data['lon']
        
-    sql = 'UPDATE stations SET SID = ?, SIP = ?, LAT = ?, LONG = ? WHERE SID = ?;'   
+    sql = 'UPDATE stations SET SID = ?, SIP = ?, LAT = ?, lon = ? WHERE SID = ?;'   
         
     conn = sqlite3.connect("stations.db")
     c = conn.cursor()
-    c.execute ( sql, (sid, sip, lat, long, station_ID) )
+    c.execute ( sql, (sid, sip, lat, lon, station_ID) )
     conn.commit()
     print 'updated station %s ' % sid
     
