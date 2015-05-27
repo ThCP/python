@@ -9,6 +9,8 @@ This file contains all the update/insert/delete commands for the destination dat
 
 import sqlite3
 
+db_name = 'destinations.db'
+
 ################# CREATE ENTRIES ####################
 def insert_new_destination (data):
     
@@ -31,7 +33,7 @@ def insert_new_destination (data):
             (?,?,?,?,?,?,?,?,?,?);
         '''
 
-    conn = sqlite3.connect("destinations.db")
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     c.execute ( sql,
                 (data['rm_id'], 
@@ -70,7 +72,7 @@ def update_destination_data (destination_data, destination_ID):
         '''
 
         
-    conn = sqlite3.connect("destination.db")
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     c.execute ( sql,
                 (destination_data['bl_id'], 
@@ -99,9 +101,17 @@ def delete_destination_data (destination_ID):
         '''
 
         
-    conn = sqlite3.connect("destination.db")
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     c.execute ( sql, (destination_ID,) )
+    conn.commit()
+    c.close()
+    
+def delete_table ():
+    sql = 'DROP TABLE destinations;'
+    conn = sqlite3.connect(db_name)
+    c = conn.cursor()
+    c.execute ( sql )
     conn.commit()
     c.close()
     

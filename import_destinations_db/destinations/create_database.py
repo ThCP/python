@@ -15,16 +15,22 @@ def create_destination_table():
     sql = """
         CREATE TABLE destinations 
         (  
-            rm_id char(4) primary key,
             bl_id char(8),
             fl_id char(4),
+            rm_id char(4),
             lat char(20),
             lon char(20),
             name char(64),
             rm_cat char(4),
             rm_type char(12),
             dv_id char(4),
-            dp_id char(8)
+            dp_id char(8),
+            primary key 
+            (
+                bl_id,
+                fl_id,
+                rm_id
+            )
         );
         """
 
