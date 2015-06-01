@@ -54,12 +54,9 @@ def insert_new_destination (data):
 
 ################## UPDATE ENTRIES ##################
 def update_destination_data (destination_data, destination_ID):
-   
+    
     sql = '''
             UPDATE destinations SET 
-                rm_id = ?, 
-                bl_id = ?,
-                fl_id = ?,
                 lat = ?,
                 lon = ?,
                 name = ?,
@@ -67,25 +64,26 @@ def update_destination_data (destination_data, destination_ID):
                 rm_type = ?,
                 dv_id = ?,
                 dp_id = ?
-            WHERE rm_id = ?
+            WHERE rm_id = ? 
+            AND bl_id = ?
+            AND fl_id = ?
             ;
         '''
-
+    
         
     conn = sqlite3.connect(db_name)
     c = conn.cursor()
     c.execute ( sql,
-                (destination_data['bl_id'], 
-                destination_data['fl_id'],
-                destination_data['rm_id'],
-                destination_data['lat'],
+                (destination_data['lat'],
                 destination_data['lon'],
                 destination_data['name'],
                 destination_data['rm_cat'],
                 destination_data['rm_type'],
                 destination_data['dv_id'],
                 destination_data['dp_id'],
-                destination_ID
+                destination_ID['rm_id'], 
+                destination_ID['bl_id'],
+                destination_ID['fl_id'],
                 ) 
                )
     conn.commit()
@@ -96,14 +94,16 @@ def delete_destination_data (destination_ID):
    
     sql = '''
             DELETE FROM destinations
-            WHERE rm_id = ?
+            WHERE rm_id = ? 
+            AND bl_id = ?
+            AND fl_id = ?
             ;
         '''
 
         
     conn = sqlite3.connect(db_name)
     c = conn.cursor()
-    c.execute ( sql, (destination_ID,) )
+    c.execute ( sql, (destination_ID['rm_id'],destination_ID['bl_id'],destination_ID['fl_id']) )
     conn.commit()
     c.close()
     
@@ -112,6 +112,6 @@ def delete_table ():
     conn = sqlite3.connect(db_name)
     c = conn.cursor()
     c.execute ( sql )
-    conn.commit()
+    #conn.commit()
     c.close()
     
