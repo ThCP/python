@@ -1,12 +1,3 @@
-rm:::::::::::::
-ARCHIBUS Data Transfer:::::::::::::
-:::::::::::::
-AllowInsertions:AllowUpdates:AllowSQLStatements:Restriction:Sort:::::::::
-1:1:1:((rm.bl_id='TO_CEN03' ) AND( rm.fl_id='XPTE'  OR  rm.fl_id='XP01')):rm.bl_id:::::::::
-:::::::::::::
-:::::::::::::
-bl_id:fl_id:rm_id:lat:lon:name:area:altezza_locale:length:rm_cat:rm_type:rm_std:dv_id:dp_id
-Fabbricato:Piano:Codice Locale:Latitudine:Longitudine:Nome locale:Area Locale:Altezza netta locale (in cm):Perimetro:Categoria  locale:Tipo di locale:Standard  locale:Tipo Struttura:Struttura
 TO_CEN03:XP01:A001::::32,52::24,1:VERT:SCALA::ATU.:AMM
 TO_CEN03:XP01:A002:45,0628790000000000:7,6609320000000100:Locale Test Impianti Speciali:23,28:330:19,5:UFF:UFF_TEC_AM::ARE.:EDILOG
 TO_CEN03:XP01:A003:0,0000000000000000:0,0000000000000000:Ufficio Impianti Speciali:23,41:325:19,6:UFF:UFF_TEC_AM::ARE.:EDILOG
@@ -215,8 +206,8 @@ TO_CEN03:XP01:Q019::::22,77::23,6:EST:SCALA_EST::ATU.:ATENEO
 TO_CEN03:XP01:Q020::::40,62::28,0:EST:SCALA_EST::ATU.:ATENEO
 TO_CEN03:XP01:Q021::::1,19::4,5:SERV:MAGAZ::ATU.:ATENEO
 TO_CEN03:XP01:U003::::113,69::61,0:VERT:RAMPA_C::ATU.:AMM
-TO_CEN03:XPTE:A001:45,0628540000000000:7,6612320000000000:Atrio Sala Consiglio di Facolt√†:257,02:445:106,6:SUPP:LOC_MULT::ATU.:ATENEO
-TO_CEN03:XPTE:A002:45,0629080000000000:7,6610670000000000:Sala Consiglio di Facolt√†:304,31::77,1:SUPP:S_RIUN:L200:ATU.:ATENEO
+TO_CEN03:XPTE:A001:45,0628540000000000:7,6612320000000000:Atrio Sala Consiglio di Facolt‡:257,02:445:106,6:SUPP:LOC_MULT::ATU.:ATENEO
+TO_CEN03:XPTE:A002:45,0629080000000000:7,6610670000000000:Sala Consiglio di Facolt‡:304,31::77,1:SUPP:S_RIUN:L200:ATU.:ATENEO
 TO_CEN03:XPTE:A003::::13,58:360:15,1:SERV:ATRIO::ATU.:ATENEO
 TO_CEN03:XPTE:A004::::9,49:360:15,1:SERV:WC::ATU.:ATENEO
 TO_CEN03:XPTE:A005::::11,62::17,5:SERV:WC::ATU.:ATENEO
