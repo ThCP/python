@@ -10,8 +10,11 @@ import json
 from rest import send
 
 data = {
-        'k1' : 'value1',
-        'k2' : 'value2'
+        'running' : 'false',
+        'id' : '0001',
+        'ip' : 'ip',
+        'lat' : '00000',
+        'long' : '00000'
         }
 
 def encode_data(data):
