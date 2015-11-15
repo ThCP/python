@@ -1,0 +1,239 @@
+#googlemaps { 
+		  height: 100%; 
+		  width: 100%; 
+		  position:absolute; 
+		  top: 40px; 
+		  left: 0; 
+		  z-index: 0; /* Set z-index to 0 as it will be on a layer below the contact form */
+		}
+		 
+		#contactform { 
+		  position: relative; 
+		  z-index: 1; /* The z-index should be higher than Google Maps */
+		  /*
+		  width: 300px;
+		  margin: 60px auto 0;
+		  */
+		  width: auto;
+		  margin: 60px 100px 0;
+		  padding: 10px;
+		  background: black;
+		  height: auto;
+		  opacity: .65; /* Set the opacity for a slightly transparent Google Form */ 
+		  color: white;
+		}
+		
+		#notificaBottom { 
+		  position: absolute; 
+		  z-index: 1; /* The z-index should be higher than Google Maps */
+		  width: auto;
+		  bottom: 0;
+		  padding: 10px;
+		  background: rgb(199, 67, 67);
+		  max-width: 70%;
+		  height: auto;
+		  opacity: .85; /* Set the opacity for a slightly transparent Google Form */ 
+		  color: white;
+		  font-weight: bold;
+		}
+		
+		#toolbar h1 {
+		  padding: 0px;
+		  margin: 0px;
+		}
+		
+		#toolbar img{
+			width: 150px;
+			height: auto;
+		}
+		
+		#myAppContent {
+		  width: 100%;
+		  height: 100%;
+		  overflow: hidden;
+		}
+		
+		.windowScorr li {
+		  list-style: none;
+		  margin-bottom: 5px;
+		}
+		
+		#menuLatDx li {
+		  list-style: none;
+		  margin-bottom: 5px;
+		}
+		
+		#menuLatDx li a{
+		   line-height: 2;
+		}
+		
+		.windowScorr li a{
+		   line-height: 2;
+		}
+		
+		
+		a{
+			color: rgb(0, 197, 255);
+		}
+		
+		a:hover{
+			color: rgb(247, 92, 84);
+		}
+		
+		
+		/***
+			PLACE FINDER
+		*/
+		
+		div.windowScorr { 
+		  position: absolute; 
+		  z-index: 100; /* The z-index should be higher than Google Maps */
+		  width: auto;
+		  bottom: 0;
+		  color: white;
+		  width: 79%;
+		  padding: .42rem;
+		  border-radius: 5px;
+		  background: black;
+		  opacity: 0.85;
+		  margin: 1rem;
+		  text-align: left;
+		  margin: 0 auto; 
+		  position: absolute;
+		  bottom: 0;
+		  left: 9%;
+		}
+		div.windowScorr label { 
+		  display: block;
+		  background: #536EA7;
+		  font-size: larger;
+		  border-radius: 5px;
+		  padding: .6rem;
+		  transition: .4s all linear; 
+		}
+		div.windowScorr label:hover { 
+		  cursor: pointer; background: green; 
+		}
+		input.toggle ~ div { 
+		  height: 0px; margin: .2rem;
+		  overflow: hidden;
+		  transition: .6s all cubic-bezier(0.730, -0.485, 0.145, 1.620)
+		}
+		input.toggle:checked ~ div { height: 500px; overflow-y: auto;}
+		input.toggle:checked + label { background: #536EA7; }
+		input.toggle { display: none; }
+		
+		select{
+			  border: 1px solid #E0E0E0;
+		}
+		
+		.myButton {
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44c767), color-stop(1, #5cbf2a));
+			background:-moz-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+			background:-webkit-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+			background:-o-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+			background:-ms-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+			background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#44c767', endColorstr='#5cbf2a',GradientType=0);
+			background-color:#44c767;
+			-moz-border-radius:28px;
+			-webkit-border-radius:28px;
+			border-radius:28px;
+			border:1px solid #18ab29;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:17px;
+			padding:5px 40px;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #2f6627;
+		}
+		.myButton:hover {
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5cbf2a), color-stop(1, #44c767));
+			background:-moz-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+			background:-webkit-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+			background:-o-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+			background:-ms-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+			background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cbf2a', endColorstr='#44c767',GradientType=0);
+			background-color:#5cbf2a;
+		}
+		.myButton:active {
+			position:relative;
+			top:1px;
+		}
+
+
+		
+		
+		
+	/* diventa la barra laterale dx fissa -> a scomparsa da mobile */
+		#menuLatDx {
+			z-index: 10;
+			padding: 10px;
+			background: black;
+			opacity: 0.85;
+			color: #FFF;
+			position: absolute;
+			right: 0;
+			float: right;
+			top: 44px;
+			height: 100%;
+			overflow: hidden;
+			width: 21%;
+		}	
+		
+		
+		
+		
+		/**
+			MEDIA QUERIES
+		**/
+
+		/* MOBILE */
+		@media screen and (max-width: 799px) {
+			#menuLatDx {
+				visibility: hidden;
+			}
+			
+			#notificaBottom{
+				top: 52px;
+				height: 20px;
+			    max-height: 100px;
+			    overflow-y: auto;
+			    min-width: 230px;
+			}
+			
+		}
+		
+		@media screen and ( min-height: 380px ){
+			input.toggle:checked ~ div { height: 350px; overflow-y: auto;}
+		}
+		
+		@media screen and ( min-height: 260px ) and ( max-height: 379px ){
+			input.toggle:checked ~ div { height: 230px; overflow-y: auto;}
+			input#myCheck1 {zoom: 1.4;}
+		}
+		
+		@media screen and ( min-height: 200px ) and ( max-height: 259px ){
+			input.toggle:checked ~ div { height: 170px; overflow-y: auto;}
+			input#myCheck1 {zoom: 1.4;}
+		}
+		
+		@media screen and ( min-height: 130px ) and ( max-height: 199px ){
+			input.toggle:checked ~ div { height: 100px; overflow-y: auto;}
+			input#myCheck1 {zoom: 1.4;}
+		}
+		
+		@media screen and ( max-height: 129px ){
+			input.toggle:checked ~ div { height: 80px; overflow-y: auto;}
+			input#myCheck1 {zoom: 1.4;}
+		}
+		
+		/* DESKTOP */
+		@media screen and (min-width: 799px) {
+			.windowScorr {
+				visibility: hidden;
+			}
+		}

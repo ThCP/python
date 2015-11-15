@@ -1,0 +1,360 @@
+<!--
+ 
+	@Author: Roberto Marturano
+	@URL: http://www.robertomarturano.it
+	@Project: Marco Poli, http://ami-2015.github.io/MarcoPoli
+	
+-->
+
+<script>
+
+	/*
+	
+		CONFIGURATIONS
+	
+	*/
+
+	var IP_ADDRESS = "http://127.0.0.1:5000";
+	var URL_STATIONS = IP_ADDRESS+"/refresh/stations"; 
+	var URL_DESTINATIONS = IP_ADDRESS+"/refresh/destinations";
+	var URL_EVENTS = IP_ADDRESS+"/refresh/events"; 
+	var N = 5; // Fetch stations' status every "N" seconds
+
+</script>
+<script src="src/jquery-1.11.3.min.js"></script>
+
+
+<html>
+<head>
+
+<title>MarcoPoli :: homepage</title>
+<link rel="stylesheet" type="text/css" href="src/snap.css" />
+
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<link rel="stylesheet" type="text/css" href="src/snap.css" />
+	<link rel="stylesheet" type="text/css" href="src/custom.css" />
+	<link rel="stylesheet" type="text/css" href="src/demo.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body>
+
+	<div class="snap-drawers">
+		<div class="snap-drawer snap-drawer-left">
+			<div>
+				<h3><img src="img/marco_poli_v3.png" width="220" height="auto"></h3>
+				<h4>Set Preferences</h4>
+				
+				<span style="margin: 36px;">Floor: <select id="selectFloor" style="margin: 0px 0px 11px 4px;">
+					  <option value="0" selected>0</option>
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					</select></span>
+					
+					
+				<ul>
+					<li><a><input type="checkbox" id="myCheckRoom" checked> Room</a></li>
+					<li><a><input type="checkbox" id="myCheckLab"> Laboratory</a></li>
+					<li><a><input type="checkbox" id="myCheckBar"> Bar</a></li>
+					<li><a><input type="checkbox" id="myCheckLib"> Library</a></li>
+					
+					 <li><input id="updateButton" type="submit" value="Update" style="margin: 10px 40px;" class="myButton"></li>
+					 
+
+				</ul>
+				
+				<p>&copy; 2015 MarcoPoli</p>
+				
+			</div>
+		</div>
+		<div class="snap-drawer snap-drawer-right"></div>
+	</div>
+        
+		
+	 
+	<div id="myAppContent" class="snap-content" data-snap-ignore="true">
+		
+		<div id="googlemaps"></div>
+	
+		<div id="toolbar">
+			<a href="#" id="open-left"></a>
+			<h1><img src="img/marco_poli_v3.png"></h1>
+		</div>
+		
+		<div style="height: 100%; padding-top: 1.2rem; overflow: visible;" id="spaziopf">
+			<div class="windowScorr">
+			<input type="checkbox" id="punch" class="toggle">
+			  <label for="punch">Place Finder</label>
+			  <div id="contentPFmobile">
+				<div id="CF_staz"></div>
+				<div id="CF_ev"></div>
+				<!--<ul>
+				  <li><b>Recommended Places</b></li>
+				  <li>Room 12 - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+				  <li>Room 3I - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+				  <li>Courtyard - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+				  <li><a href="#">Show more...</a></li>
+				  <br>
+				  <li><b>Special Events</b></li>
+				  <li>Mixto Night</li>
+				  <li>MarcoPoli's intro</li>
+				  <li><a href="#">Show more...</a></li>
+
+				</ul>-->
+			  </div>
+
+			</div>
+		</div>
+		
+		
+		
+		<div id="notificaBottom" style="display: none"></div>
+		
+		
+		<div id="menuLatDx">
+			<div id="parte_staz"></div>
+			<div id="parte_ev"></div>
+			<!--<ul>
+			  <li><b>Recommended Places</b></li>
+			  <li><a href="#" onclick="savedMap.panTo(new google.maps.LatLng(45.063951, 7.660769))">Room</a> 12 - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+			  <li>Room 3I - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+			  <li>Courtyard - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+			  <li><a href="#">Show more...</a></li>
+			  <br>
+			  <li><b>Special Events</b></li>
+			  <li>Mixto Night</li>
+			  <li>MarcoPoli's intro</li>
+			  <li><a href="#">Show more...</a></li>
+			</ul>-->
+		</div>
+		
+
+	</div>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="src/map_details.js"></script> 
+<script src="src/snap.js"></script>
+<script src="src/demo.js"></script>
+<script src="src/config.js"></script>
+
+<script type="text/javascript">
+	
+	// get the status of the preferences and make a json string
+	function sendSomeData(){
+	
+		var arr = { Floor: $('#selectFloor').val(), Room: $('#myCheckRoom').prop('checked'), Laboratory: $('#myCheckLab').prop('checked'), Bar: $('#myCheckBar').prop('checked'), Library: $('#myCheckLib').prop('checked') };
+		var s = JSON.stringify(arr);
+		
+		//return arr;
+		
+		return s;
+	}
+
+	
+/*
+	Update the destinations (due to user click on "Update" button). It sends a POST request to server (passing a json string) and receives another json
+	with the destinations to show.
+*/
+
+	$("#updateButton").click(function(){
+		//staticDemoDestinations();
+		deleteAllDestinations();
+		
+		$.post( URL_DESTINATIONS, sendSomeData(), function( data ) {
+			
+			var obj = jQuery.parseJSON(data);
+
+			for (i=0; i<obj.length; i++) { 
+				val=obj[i];
+				x = val[3].replace(",", ".");
+				y = val[4].replace(",", ".");
+				nome = val[5];
+				tipo = val[6];
+				
+				addDestinationToMap(x,y,nome,tipo);
+			}
+			
+		});
+		
+	});
+	
+	
+	//debugging purpose
+	function staticDemoDestinations(){
+		locations=[];
+		
+		var x = 0;
+		var y = 0;
+		var nome = "";
+		var tipo = "";
+		
+		$.getJSON( "dest_post.txt", function( data ) {
+		  var items = [];
+		  $.each( data, function( key, val ) {
+			items.push( "<li id='" + key + "'>" + val + "</li>" );
+			//alert(key + " -> " + val);
+			x = val[3].replace(",", ".");
+			y = val[4].replace(",", ".");
+			nome = val[5];
+			tipo = val[6];
+						
+			addDestinationToMap(x,y,nome, tipo);
+		  });
+		  
+		  vediNotifica(items);
+		});
+	}
+
+
+/* 
+	Every N seconds, checks for stations' updates (GET request to server). It receives a json with all the stations' informations.
+*/
+
+	$(document).ready(function() {
+	
+		window.setInterval(function(){
+			getStationData();
+			getEvents();
+		}, N*1000)
+	
+	});
+	
+	
+	function getStationData(){
+		deleteAllStations();
+		//$('#menuLatDx').html("<ul></ul>");
+		//$('#menuLatDx ul').append("<li><b>Recommended Places</b></li>");
+		
+		$('#menuLatDx').html('<div id="parte_staz"><ul><li><b>Recommended Places</b></li></ul></div><div id="parte_ev"><ul></ul></div>');
+		
+		//$('#contentPFmobile').html("<ul></ul>");
+		//$('#contentPFmobile ul').append("<li><b>Recommended Places</b></li>");
+		
+		$('#contentPFmobile').html('<div id="CF_staz"><ul><li><b>Recommended Places</b></li></ul></div><div id="CF_ev"><ul></ul></div>');
+		
+		
+		var x = 0;
+		var y = 0;
+		
+		var sensors = [];
+		
+		$.getJSON( URL_STATIONS, function( data ) {
+
+		 $.each( data, function( key, val ) {
+			sensors = [];
+			x=0;
+			y=0;
+			x = val[1].replace(",", ".");
+			y = val[2].replace(",", ".");
+			sensors.push(val[3]);
+			sensors.push(val[4]);
+			sensors.push(val[5]);
+			sensors.push(val[6]);
+			sensors.push(val[7]);
+			
+			addStationToMap(x,y,val[0],sensors);
+			rank=val[8];
+			name=val[0];
+			
+			placefinder(name,x,y,sensors,rank);
+			
+		  });
+
+		});
+		
+	}
+	
+	function placefinder(name,x,y,sensors,rank){	
+			str = '<li><a href="#" onclick="savedMap.panTo(new google.maps.LatLng('+x+', '+y+'))">'+name+'</a> - ';
+			
+			n = Math.ceil(rank*5/100);
+			
+			for(i=0;i<n;i++)
+				str+='<i class="fa fa-star"></i>';
+				
+			for(i=n;i<5;i++)
+				str+='<i class="fa fa-star-o"></i>';
+				
+			
+			str+='</li>';
+			
+			$('#parte_staz ul').append(str);
+			$('#CF_staz ul').append(str);
+	}
+	
+	var n_events = 0;
+	var placefinder_free=false;
+	
+	function getEvents(){
+		n_events=0;
+		deleteAllEvents();
+		
+		$.getJSON( URL_EVENTS, function( data ) {
+		
+			var i=0;
+			
+		  $.each(data, function( key, val ) {
+		  
+			console.log(i);
+			i=i+1;
+			console.log(val);
+			
+			name=val[4];
+			x=0;
+			y=0;
+			x = val[9].replace(",", ".");
+			y = val[10].replace(",", ".");
+			from_date=val[5];
+			from_hour=val[6];
+			to_date=val[7];
+			to_hour=val[8];
+			
+			where=val[11];
+			
+			addEventToMap(x,y,name,from_date,from_hour,to_date,to_hour,where,i);
+			
+			PfEvents(x,y,name,from_date,from_hour,to_date,to_hour,where,i);
+		  });
+		  $('#parte_ev ul').append('<br><br><br><br>');
+		});
+		
+	}
+	
+	
+	function PfEvents(x,y,name,from_date,from_hour,to_date,to_hour,where,i){	
+	
+			if(n_events==0){
+				$('#parte_ev ul').append("<br><br><li><b>Special Events</b></li>");
+				$('#CF_ev ul').append("<br><li><b>Special Events</b></li>");
+			}
+	
+			n_events++;
+			
+			str = '<li><a href="#" onclick="savedMap.panTo(new google.maps.LatLng('+x+', '+y+'))">'+name+'</a><br>';
+			
+			if(from_date!=-1){
+				str+='<i class="fa fa-calendar"></i> ' + from_date;
+				if(from_hour!=-1){
+					str+=', <i class="fa fa-clock-o"></i> ' + from_hour;
+				}
+			}else if(from_hour!=-1){
+				str+='<i class="fa fa-clock-o"></i> ' + from_hour;
+			}
+			
+			str+='</li>';
+			
+			$('#parte_ev ul').append(str);
+			$('#CF_ev ul').append(str);
+	}
+
+</script>
+
+
+</body>
+</html>

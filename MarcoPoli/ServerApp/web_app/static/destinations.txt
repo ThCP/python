@@ -1,0 +1,31 @@
+[
+	[
+		"TO_CEN03",
+		"XPTE",
+		"A001",
+		"45,0628540000000000",
+		"7,6612320000000000",
+		"Atrio Sala Consiglio di Facolta'",
+		"LOC_MULT"
+	],
+	
+	[
+		"TO_CEN03",
+		"XPTE",
+		"A001",
+		"45.062362",
+		"7.660521",
+		"Atrio Sala Consiglio di Facolta'<br>Altra riga<br><b>terza</b> riga<br><img src='img/circle_orange.png'>",
+		"LOC_MULT"
+	],
+	
+	[
+		"TO_CEN03",
+		"XPTE",
+		"A001",
+		"45,0628540000000000",
+		"7.660521",
+		"Atrio Sala Consiglio di Facolta'",
+		"LOC_MULT"
+	]
+]

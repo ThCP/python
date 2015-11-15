@@ -1,0 +1,263 @@
+<!--
+ 
+	@Author: Roberto Marturano
+	@URL: http://www.robertomarturano.it
+	@Project: Marco Poli, http://ami-2015.github.io/MarcoPoli
+	
+-->
+
+<script>
+
+	/*
+	
+		CONFIGURATIONS
+	
+	*/
+
+	var URL_STATIONS = "stations.txt"; //set "stations.txt" for a demo
+	var URL_DESTINATIONS = "http://127.0.0.1:5000/refresh";
+	var N = 5; // Fetch stations' status every "N" seconds
+
+</script>
+
+
+
+<html>
+<head>
+
+<title>MarcoPoli :: homepage</title>
+<link rel="stylesheet" type="text/css" href="src/snap.css" />
+
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<link rel="stylesheet" type="text/css" href="src/snap.css" />
+	<link rel="stylesheet" type="text/css" href="src/custom.css" />
+	<link rel="stylesheet" type="text/css" href="src/demo.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body>
+
+	<div class="snap-drawers">
+		<div class="snap-drawer snap-drawer-left">
+			<div>
+				<h3><img src="img/marco_poli_v3.png" width="220" height="auto"></h3>
+				<h4>Set Preferences</h4>
+				
+				<span style="margin: 36px;">Floor: <select id="selectFloor" style="margin: 0px 0px 11px 4px;">
+					  <option value="0">0</option>
+					  <option value="1" selected>1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					</select></span>
+					
+					
+				<ul>
+					<li><a><input type="checkbox" id="myCheckRoom" checked> Room</a></li>
+					<li><a><input type="checkbox" id="myCheckLab"> Laboratory</a></li>
+					<li><a><input type="checkbox" id="myCheckBar"> Bar</a></li>
+					<li><a><input type="checkbox" id="myCheckLib"> Library</a></li>
+					
+					 <li><input id="updateButton" type="submit" value="Update" style="margin: 10px 40px;" class="myButton"></li>
+					 
+
+				</ul>
+				
+				<p>&copy; 2015 MarcoPoli</p>
+				
+			</div>
+		</div>
+		<div class="snap-drawer snap-drawer-right"></div>
+	</div>
+        
+		
+	 
+	<div id="myAppContent" class="snap-content" data-snap-ignore="true">
+		
+		<div id="googlemaps"></div>
+	
+		<div id="toolbar">
+			<a href="#" id="open-left"></a>
+			<h1><img src="img/marco_poli_v3.png"></h1>
+		</div>
+		
+		<div style="height: 100%; padding-top: 1.2rem; overflow: visible;" id="spaziopf">
+			<div class="windowScorr">
+			<input type="checkbox" id="punch" class="toggle">
+			  <label for="punch">Place Finder</label>
+			  <div>
+				<ul>
+				  <li><b>Recommended Places</b></li>
+				  <li>Room 12 - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+				  <li>Room 3I - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+				  <li>Courtyard - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+				  <li><a href="#">Show more...</a></li>
+				  <br>
+				  <li><b>Special Events</b></li>
+				  <li>Mixto Night</li>
+				  <li>MarcoPoli's intro</li>
+				  <li><a href="#">Show more...</a></li>
+
+				</ul>
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div id="notificaBottom" style="display: none"></div>
+		
+		
+		<div id="menuLatDx">
+			<ul>
+			  <li><b>Recommended Places</b></li>
+			  <li>Room 12 - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+			  <li>Room 3I - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+			  <li>Courtyard - <i class="fa fa-group"></i> <i class="fa fa-fire"></i> <i class="fa fa-volume-up"></i></li>
+			  <li><a href="#">Show more...</a></li>
+			  <br>
+			  <li><b>Special Events</b></li>
+			  <li>Mixto Night</li>
+			  <li>MarcoPoli's intro</li>
+			  <li><a href="#">Show more...</a></li>
+			</ul>
+		</div>
+		
+
+	</div>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="src/map_details.js"></script> 
+<script src="src/snap.js"></script>
+<script src="src/demo.js"></script>
+<script src="src/config.js"></script>
+
+
+<script type="text/javascript">
+	
+	// get the status of the preferences and make a json string
+	function sendSomeData(){
+	
+		var arr = { Floor: $('#selectFloor').val(), Room: $('#myCheckRoom').prop('checked'), Laboratory: $('#myCheckLab').prop('checked'), Bar: $('#myCheckBar').prop('checked'), Library: $('#myCheckLib').prop('checked') };
+		var s = JSON.stringify(arr);
+		
+		//return arr;
+		
+		return s;
+	}
+
+	
+/*
+	Update the destinations (due to user click on "Update" button). It sends a POST request to server (passing a json string) and receives another json
+	with the destinations to show.
+*/
+
+	$("#updateButton").click(function(){
+		alert(sendSomeData());
+		//staticDemoDestinations();
+		
+		$.post( URL_DESTINATIONS, sendSomeData(), function( data ) {
+			
+			alert(data);
+			
+			var items = [];
+			$.each( data, function( key, val ) {
+				items.push( "<li id='" + key + "'>" + val + "</li>" );
+				//alert(key + " -> " + val);
+				x = val[3].replace(",", ".");
+				y = val[4].replace(",", ".");
+				nome = val[5];
+				tipo = val[6];
+							
+				addDestinationToMap(x,y,nome,tipo);
+			});
+			  
+			vediNotifica(items);
+			
+		});
+		
+	});
+	
+	
+	//debugging purpose
+	function staticDemoDestinations(){
+		locations=[];
+		
+		var x = 0;
+		var y = 0;
+		var nome = "";
+		var tipo = "";
+		
+		$.getJSON( "destinations.txt", function( data ) {
+		  var items = [];
+		  $.each( data, function( key, val ) {
+			items.push( "<li id='" + key + "'>" + val + "</li>" );
+			//alert(key + " -> " + val);
+			x = val[3].replace(",", ".");
+			y = val[4].replace(",", ".");
+			nome = val[5];
+			tipo = val[6];
+						
+			addDestinationToMap(x,y,nome, tipo);
+		  });
+		  
+		  vediNotifica(items);
+		});
+	}
+
+
+/* 
+	Every N seconds, checks for stations' updates (GET request to server). It receives a json with all the stations' informations.
+*/
+
+	var conta = 1;
+
+	$(document).ready(function() {
+	
+		window.setInterval(function(){
+			getStationData();
+		}, N*1000)
+	
+	});
+	
+	
+	function getStationData(){
+		deleteAllStations();
+	
+		var x = 0;
+		var y = 0;
+		
+		var sensors = [];
+		
+		$.getJSON( URL_STATIONS, function( data ) {
+		  var items = [];
+		  $.each( data, function( key, val ) {
+			sensors = [];
+			x=0;
+			y=0;
+			x = val[1].replace(",", ".");
+			y = val[2].replace(",", ".");
+			sensors.push(val[3]);
+			sensors.push(val[4]);
+			sensors.push(val[5]);
+			sensors.push(val[6]);
+			sensors.push(val[7]);
+			
+			addStationToMap(x,y,val[0],sensors);
+			
+			vediNotifica(conta+") "+x+" "+y+" "+sensors);
+			conta++;
+		  });
+
+		});
+	}
+
+</script>
+
+
+</body>
+</html>

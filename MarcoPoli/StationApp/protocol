@@ -1,0 +1,20 @@
+PROTOCOLLO STAZIONE SERVER
+
+SERVER ATTIVO
+      |
+      +-> INIT. STAZIONE -> MANDA AL SERVER:	ID
+												LAT
+												LONG
+	IL SERVER SALVA							<-	IP
+	NEL DB STAZIONI
+		|
+		+-> IL SERVER MANDA ALLA STAZIONE
+		    IL MESSAGGIO START CON UN POST
+		    ALL'INDIRIZZO ip_stazione/start
+				   |
+				   |
+				   +->	LA STAZIONE RICEVE
+					E COMINCIA A INVIARE
+					I DATI ALL'INDIRIZZO
+					ip_server/stations/id_stazione
+					CON UN POST
